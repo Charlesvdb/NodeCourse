@@ -1,11 +1,8 @@
-// const fs = require("fs")
-
-// // fs.writeFileSync("notes.txt","My name is Charles")
-
-// fs.appendFileSync("notes.txt","Adding this line to the core")
-
+const validator = require("validator")
 const getNotes = require('./notes.js')
 
 const msg = getNotes()
-
 console.log(msg)
+
+console.log(validator.isEmail("andrew@example.com"))
+console.log(validator.isURL("www.panenco.com"))

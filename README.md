@@ -1,2 +1,0 @@
-# NodeCourse
-NodeCourse Udemy Panenco

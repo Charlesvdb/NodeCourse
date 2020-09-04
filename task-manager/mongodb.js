@@ -16,47 +16,74 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true}, (error,client) => {
 
     const db = client.db(databaseName)
 
-    db.collection("users").insertOne({
-        name: "Andrew",
-        age: 27
-    }, (error,result) => {
+    // db.collection("users").insertOne({
+    //     name: "Andrew",
+    //     age: 27
+    // }, (error,result) => {
+    //     if(error){
+    //         return console.log("Unable to insert user")
+    //     }
+    //     console.log(result.ops)
+    // })
+
+    // db.collection("users").insertMany([
+    //     {
+    //         name: "Jen",
+    //         age: 28
+    //     }, {
+    //         name: "Jen",
+    //         age: 27
+    //     }
+    // ], (error, result) => {
+    //     if(error){
+    //         return console.log("Unable to insert documents!")
+    //     }
+    //     console.log(result.ops)
+    // })
+
+    // db.collection("tasks").insertMany([
+    //     {
+    //         description: "Clean the house",
+    //         completed: true
+    //     },{
+    //         description: "Renew inspection",
+    //         completed: false
+    //     },{
+    //         description: "Pot plants",
+    //         completed: false
+    //     }
+    // ], (error, result) => {
+    //     if(error){
+    //         return console.log("Unable to insert tasks")
+    //     }
+
+    //     console.log(result.ops)
+    // })
+
+    // db.collection("users").findOne({_id: new ObjectID("5f520341041d72b7e126fd9f")},(error, user) => {
+    //     if(error){
+    //         return console.log("Unable to fetch")
+    //     }
+    //     console.log(user)
+    //     })
+
+    // db.collection("users").find({age: 27}).toArray((error,users) => {
+    //     console.log(users)
+    // })
+
+    // db.collection("users").find({age: 27}).count((error,count) => {
+    //     console.log(count)
+    // })
+
+    db.collection("tasks").findOne({_id: new ObjectID("5f520341041d72b7e126fd9f")},(error,task) => {
         if(error){
-            return console.log("Unable to insert user")
+            return console.log("Unable to fetch!")
         }
-        console.log(result.ops)
+        console.log(task)
     })
 
-    db.collection("users").insertMany([
-        {
-            name: "Jen",
-            age: 28
-        }, {
-            name: "Jen",
-            age: 27
-        }
-    ], (error, result) => {
-        if(error){
-            return console.log("Unable to insert documents!")
-        }
-        console.log(result.ops)
+    db.collection("tasks").find({completed:false}).toArray((error,tasks)=> {
+        console.log(tasks)
     })
 
-    db.collection("tasks").insertMany([
-        {
-            description: "Clean the house",
-            completed: true
-        },{
-            description: "Renew inspection",
-            completed: false
-        },{
-            description: "Pot plants",
-            completed: false
-        }
-    ], (error, result) => {
-        if(error){
-            return console.log("Unable to insert tasks")
-        }
-
-        console.log(result.ops)
-    })
 })

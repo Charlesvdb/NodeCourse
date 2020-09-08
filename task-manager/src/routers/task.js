@@ -1,5 +1,6 @@
 const express = require("express")
-const Task = require("/../models/task")
+const Task = require("../models/task")
+const User = require("../models/user")
 const router = new express.Router()
 
 router.post("/tasks", async (req,res) => {
@@ -19,6 +20,15 @@ router.post("/tasks", async (req,res) => {
     // }).catch((e) => {
     //     res.status(400).send(e)
     // })
+})
+
+router.post("/users/login", async (req,res) => {
+    try{
+        const user = await User.findByCredentials(req.body.email,req.body.password)
+        res.send(user)
+    }catch(e){
+        res.status(400).send()
+    }
 })
 
 router.get("/tasks", async (req,res) => {
@@ -41,7 +51,12 @@ router.get("/tasks/:id", async (req,res) => {
     const _id = req.params.id
 
     try {
-        const task = await Task.findById(_id)
+        const task = await Task.findById(req.params.id)
+
+        updates.forEach((update) => taks[update] = req.body[update])
+        await task.save()
+        
+        // const task = await Task.findById(_id)
 
         if(!task){
             return res.status(404).send()
@@ -49,7 +64,7 @@ router.get("/tasks/:id", async (req,res) => {
 
         res.send(task)
 
-    }catch (e){
+    }catch(e){
         res.status(500).send()
     }
 
